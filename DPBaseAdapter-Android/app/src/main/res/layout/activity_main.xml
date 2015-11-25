@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" 
+    android:gravity="center_vertical"
+    android:padding="5dp">
+
+    <Button
+        android:id="@+id/listview_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="ListView"
+        android:textSize="18sp" 
+        android:layout_marginBottom="5dp"/>
+    
+    <Button
+        android:id="@+id/listview_data_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="ListView_Json"
+        android:textSize="18sp" 
+        android:layout_below="@+id/listview_btn"/>
+    
+    <Button
+        android:id="@+id/gridview_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="GridView"
+        android:textSize="18sp" 
+        android:layout_below="@+id/listview_data_btn"/>
+
+    <Button
+    android:id="@+id/recycle_btn"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:text="RecycleView"
+    android:textSize="18sp"
+    android:layout_below="@+id/gridview_btn"/>
+
+    <Button
+        android:id="@+id/chat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="ChatListView"
+        android:textSize="18sp"
+        android:layout_below="@+id/recycle_btn"/>
+
+</RelativeLayout>

@@ -1,0 +1,84 @@
+
+package com.whiskeyfei.fragment;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import com.fei.library.fragment.DPBaseFragment;
+import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
+import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
+import com.whiskeyfei.R;
+import com.whiskeyfei.adapter.DPGridViewAdapter;
+import com.whiskeyfei.model.DPItemModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListener,OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
+	private GridView mGridView;
+	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();
+	DPGridViewAdapter mDPGridViewAdapter;
+	private View mMainView;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		mMainView = inflater.inflate(R.layout.gridview, null);
+		initData();
+		initView();
+		return mMainView;
+	}
+
+	private void initData() {
+		for (int i = 0; i < 30; i++) {
+			DPItemModel model = new DPItemModel();
+			model.setItemResId(R.drawable.ic_launcher);
+			model.setItemTitle("title" + i);
+			model.setItemContent("content" + i);
+			mDataList.add(model);
+		}
+	}
+	
+	private void initView() {
+		mGridView = (GridView)mMainView.findViewById(R.id.gridview);
+		mGridView.setNumColumns(3);
+		mDPGridViewAdapter = new DPGridViewAdapter(getActivity(), mDataList, R.layout.gridview_item);
+		mGridView.setOnItemClickListener(this);
+		mGridView.setOnItemLongClickListener(this);
+		mDPGridViewAdapter.setOnItemChildViewByIdClickListener(this);
+		mDPGridViewAdapter.setOnItemChildViewByIdLongClickListener(this);
+		mGridView.setAdapter(mDPGridViewAdapter);
+	}
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+		Toast.makeText(getActivity(), "点击" + position,Toast.LENGTH_SHORT).show();
+	}
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
+		Toast.makeText(getActivity(), "长按" + position,Toast.LENGTH_SHORT).show();
+		return false;
+	}
+
+	@Override
+	public void onItemChildViewByIdClick(View v, int position) {
+		if (v.getId() == R.id.gridview_delete) {
+			Toast.makeText(getActivity(), "按了删除 " + mDPGridViewAdapter.getItem(position).mItemTitle + position,Toast.LENGTH_SHORT).show();
+			mDPGridViewAdapter.removeItem(position);
+        }
+	}
+
+	@Override
+	public boolean onItemChildViewByIdLongClick(ViewGroup viewGroup, View v, int position) {
+		if (v.getId() == R.id.gridview_delete) {
+			Toast.makeText(getActivity(), "长按了删除 " + mDPGridViewAdapter.getItem(position).mItemTitle + position,Toast.LENGTH_SHORT).show();
+            return true;
+        }
+		return false;
+	}
+}
