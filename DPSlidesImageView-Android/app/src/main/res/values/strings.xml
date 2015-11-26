@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DPSlidesImageView-Android</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_main_fragment">TimerFragment</string>
+    <string name="action_Slides_fragment">SlidesFragment</string>
+</resources>

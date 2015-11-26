@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/action_main_fragment"
+        android:orderInCategory="100"
+        android:title="@string/action_main_fragment"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_Slides_fragment"
+        android:orderInCategory="100"
+        android:title="@string/action_Slides_fragment"
+        app:showAsAction="never" />
+</menu>
