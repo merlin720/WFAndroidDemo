@@ -5,9 +5,6 @@ Android-BaseAdapter-study01 demo中学习BaseAdapter的使用与优化
 
 **【感谢慕课网的 [Android必学-BaseAdapter的使用与优化](http://www.imooc.com/learn/365) 视频教程】**
 
-## 效果图
-   ![效果](../master/app/src/main/res/drawable/xiaoguo.jpeg)
-   
 ## Adapter三种方式
 1、没有用到ListView的缓存机制<br/>
 
