@@ -6,7 +6,7 @@
 
 > 最后送上一句话,再看资料时看到的，“Architecture is About Intent, not Frameworks” - Robert C. Martin (Uncle Bob)
 
-### 详细请查看 [MVPSample](https://github.com/whiskeyfei/WFAndroidDemo/tree/master/MVPSample-master)
+### 详细请查看   [MVPSample](https://github.com/whiskeyfei/WFAndroidDemo/tree/master/MVPSample-master)
 
 ### 推荐文章
 
