@@ -11,30 +11,33 @@ import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.whiskeyfei.demo.utils.Constants;
 import com.whiskeyfei.demo.utils.VolleyUtil;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     ImageView mImageView;
+    NetworkImageView mNetworkImageView;
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        testStringRequest();
-        testImageRequest();
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+        testStringRequest();//测试StringRequest
+        testImageRequest();//测试ImageRequest
+        testmNetworkImageView();//测试自带下载图片
+        testImageLoader();//测试ImageLoader 需要初始化ImageLoader 和 iamgecache
+    }
+
+    private void testmNetworkImageView() {
+        mNetworkImageView = (NetworkImageView)findViewById(R.id.network_image);
+        mNetworkImageView.setImageUrl(Constants.BAIDU_IMAGE2,VolleyUtil.getImageLoader());
     }
 
     public void testStringRequest(){
@@ -71,13 +74,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         VolleyUtil.addToRequestQueue(request, mImageView);
+
     }
 
+    public void testImageLoader(){
+        VolleyUtil.getImageLoader().get(Constants.BAIDU_IMAGE2, ImageLoader.getImageListener((ImageView) findViewById(R.id.image_loder),R.mipmap.ic_launcher,R.mipmap.ic_launcher));
+    }
 
-//    public void teset(){
-//        JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest();
-//    }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

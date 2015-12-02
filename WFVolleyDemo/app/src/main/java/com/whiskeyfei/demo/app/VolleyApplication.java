@@ -14,6 +14,7 @@ public class VolleyApplication extends Application {
 		super.onCreate();
 		mInstance = this;
 		VolleyUtil.init(this);
+		VolleyUtil.initImageLoder();
 	}
 	
 	public static synchronized VolleyApplication get(){
