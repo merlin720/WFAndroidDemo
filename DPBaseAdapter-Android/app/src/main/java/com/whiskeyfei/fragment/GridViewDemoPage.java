@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.fei.library.config.AppConstants;
 import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
 import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
@@ -41,6 +42,7 @@ public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListe
 			model.setItemResId(R.drawable.ic_launcher);
 			model.setItemTitle("title" + i);
 			model.setItemContent("content" + i);
+			model.setItemIconUrl(AppConstants.BAIDU_IMAGE2);
 			mDataList.add(model);
 		}
 	}

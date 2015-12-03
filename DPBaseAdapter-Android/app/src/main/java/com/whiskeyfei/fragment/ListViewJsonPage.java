@@ -12,15 +12,15 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.fei.library.config.Constants;
+import com.fei.library.config.AppConstants;
 import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
 import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.fei.library.utils.ListUtils;
-import com.fei.library.utils.VolleyUtil;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.DPListViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
+import com.whiskeyfei.utils.VolleyUtil;
 
 import org.json.JSONObject;
 
@@ -50,8 +50,8 @@ public class ListViewJsonPage extends DPBaseFragment implements AdapterView.OnIt
 	}
 
 	private void initData() {
-		VolleyUtil.getQueue(getActivity()).cancelAll(this);
-		JsonObjectRequest request = new JsonObjectRequest(Constants.DEFAULT_CHINA_NEWS_URL, null,
+		VolleyUtil.cancelAllQueue(this);
+		JsonObjectRequest request = new JsonObjectRequest(AppConstants.BAIDU_IMAGE2, null,
 				new Response.Listener<JSONObject>() {
 
 					@Override
@@ -65,7 +65,7 @@ public class ListViewJsonPage extends DPBaseFragment implements AdapterView.OnIt
 				onFailure();
 			}
 		});
-		VolleyUtil.getQueue(getActivity()).add(request);
+		VolleyUtil.addToRequestQueue(request,this);
 	}
 
 	private void onSuccess(JSONObject response) {
@@ -100,7 +100,7 @@ public class ListViewJsonPage extends DPBaseFragment implements AdapterView.OnIt
 
 	@Override
 	public void onDestroy() {
-		VolleyUtil.getQueue(getActivity()).cancelAll(this);
+		VolleyUtil.cancelAllQueue(this);
 		super.onDestroy();
 	}
 

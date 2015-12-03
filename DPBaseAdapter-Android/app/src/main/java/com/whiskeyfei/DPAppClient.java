@@ -2,6 +2,9 @@ package com.whiskeyfei;
 
 import android.content.Context;
 
+import com.whiskeyfei.utils.VolleyUtil;
+
+
 public class DPAppClient {
 	private static final String TAG = "DPAppClient";
 	private Context mAppContext = null;
@@ -13,8 +16,10 @@ public class DPAppClient {
 		return mInstance;
 	}
 
-	public void setupWithContext(Context context) {
+	public void init(Context context) {
 		mAppContext = context;
+		VolleyUtil.init(context);
+		VolleyUtil.initImageLoder();
 	}
 
 	private void ensureAppContext() {
