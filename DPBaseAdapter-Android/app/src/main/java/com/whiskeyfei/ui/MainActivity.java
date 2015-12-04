@@ -13,14 +13,13 @@ import com.whiskeyfei.R;
 import com.whiskeyfei.fragment.ChatListDemoPage;
 import com.whiskeyfei.fragment.GridViewDemoPage;
 import com.whiskeyfei.fragment.ListViewDemoPage;
-import com.whiskeyfei.fragment.ListViewJsonPage;
 import com.whiskeyfei.fragment.RecyclerviewDemoPage;
 import com.whiskeyfei.utils.ApiConstant;
 
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    private Button mButtonListView, mButtonGridView, mButtonJson, mRecycleBtn, mChatBtn;
+    private Button mButtonListView, mButtonGridView, mRecycleBtn, mChatBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +31,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private void initView() {
         mButtonListView = (Button) findViewById(R.id.listview_btn);
         mButtonGridView = (Button) findViewById(R.id.gridview_btn);
-        mButtonJson = (Button) findViewById(R.id.listview_data_btn);
         mRecycleBtn = (Button) findViewById(R.id.recycle_btn);
         mChatBtn = (Button) findViewById(R.id.chat_btn);
         mButtonListView.setOnClickListener(this);
         mButtonGridView.setOnClickListener(this);
-        mButtonJson.setOnClickListener(this);
         mRecycleBtn.setOnClickListener(this);
         mChatBtn.setOnClickListener(this);
     }
@@ -71,9 +68,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.gridview_btn:
                 intent.putExtra(ApiConstant.FRAGMENT_FLAG, GridViewDemoPage.FRAGMENT_FLAG);
-                break;
-            case R.id.listview_data_btn:
-                intent.putExtra(ApiConstant.FRAGMENT_FLAG, ListViewJsonPage.FRAGMENT_FLAG);
                 break;
             case R.id.recycle_btn:
                 intent.putExtra(ApiConstant.FRAGMENT_FLAG, RecyclerviewDemoPage.FRAGMENT_FLAG);

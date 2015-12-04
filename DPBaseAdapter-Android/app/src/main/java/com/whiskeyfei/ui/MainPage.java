@@ -11,7 +11,6 @@ import com.whiskeyfei.R;
 import com.whiskeyfei.fragment.ChatListDemoPage;
 import com.whiskeyfei.fragment.GridViewDemoPage;
 import com.whiskeyfei.fragment.ListViewDemoPage;
-import com.whiskeyfei.fragment.ListViewJsonPage;
 import com.whiskeyfei.fragment.RecyclerviewDemoPage;
 import com.whiskeyfei.utils.ApiConstant;
 
@@ -19,7 +18,7 @@ import com.whiskeyfei.utils.ApiConstant;
  * Created by whiskeyfei on 15-11-25.
  */
 public class MainPage extends DPBaseActivity implements IBaseFragmentEvent {
-    
+
     private DPBaseFragment mCurrentFragment;
 
     @Override
@@ -34,9 +33,6 @@ public class MainPage extends DPBaseActivity implements IBaseFragmentEvent {
                 break;
             case GridViewDemoPage.FRAGMENT_FLAG:
                 fragment = new GridViewDemoPage();
-                break;
-            case ListViewJsonPage.FRAGMENT_FLAG:
-                fragment = new ListViewJsonPage();
                 break;
             case RecyclerviewDemoPage.FRAGMENT_FLAG:
                 fragment = new RecyclerviewDemoPage();

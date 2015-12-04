@@ -45,9 +45,6 @@ public class FragmentList extends DPBaseFragment implements View.OnClickListener
             case R.id.gridview_btn:
                 mIBaseFramentEvent.onSwitchFragment(new GridViewDemoPage(), null);
                 break;
-            case R.id.listview_data_btn:
-                mIBaseFramentEvent.onSwitchFragment(new ListViewJsonPage(),null);
-                break;
             case R.id.recycle_btn:
                 mIBaseFramentEvent.onSwitchFragment(new RecyclerviewDemoPage(), null);
                 break;

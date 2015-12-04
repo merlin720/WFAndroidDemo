@@ -1,14 +1,11 @@
 package com.whiskeyfei.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
 import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.whiskeyfei.R;
@@ -16,29 +13,22 @@ import com.whiskeyfei.adapter.DPListViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
 import com.whiskeyfei.utils.ApiConstant;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ListViewDemoPage extends DPBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
+public class ListViewDemoPage extends PageFragment<DPItemModel> implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
 	
 	private static final String TAG = "ListViewDemoPage";
 	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_1;
 
 	private ListView mListView;
-	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();
 	private static final String IMAGEURL = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/img/logo_white_ee663702.png";
 	private DPListViewAdapter mDpListViewAdapter;
-	private View mMainView;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mMainView = inflater.inflate(R.layout.listview, null);
-		initData();
-		initView();
-		return mMainView;
+	protected int getLayoutId() {
+		return R.layout.listview;
 	}
 
-	private void initData() {
+	@Override
+	protected void initData() {
 		for (int i = 0; i < 30; i++) {
 			DPItemModel model = new DPItemModel();
 			model.setItemResId(R.drawable.ic_launcher);
@@ -49,7 +39,8 @@ public class ListViewDemoPage extends DPBaseFragment implements AdapterView.OnIt
 		}
 	}
 
-	private void initView() {
+	@Override
+	public void initView() {
 		mListView = (ListView) mMainView.findViewById(R.id.list_view);
 		mDpListViewAdapter = new DPListViewAdapter(getActivity(), mDataList, R.layout.listview_item);
 		mDpListViewAdapter.setOnItemChildViewByIdClickListener(this);

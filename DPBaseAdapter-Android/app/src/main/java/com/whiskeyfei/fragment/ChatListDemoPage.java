@@ -1,13 +1,10 @@
 package com.whiskeyfei.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.DPMultiItemTypeSupport;
 import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
 import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
@@ -16,24 +13,17 @@ import com.whiskeyfei.adapter.DPChatAdapter;
 import com.whiskeyfei.model.ChatMessage;
 import com.whiskeyfei.utils.ApiConstant;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ChatListDemoPage extends DPBaseFragment implements DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
+public class ChatListDemoPage extends PageFragment<ChatMessage> implements DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
 	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_5;
 	private static final String TAG = "ChatListDemoPage";
 	private ListView mListView;
-	private List<ChatMessage> mDataList = new ArrayList<ChatMessage>();
 	private DPChatAdapter mDpListViewAdapter;
-	private View mMainView;
-	
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mMainView = inflater.inflate(R.layout.listview, null);
-		initView();
-		initData();
-		return mMainView;
+	protected int getLayoutId() {
+		return R.layout.listview;
 	}
+
 
 	private DPMultiItemTypeSupport<ChatMessage> mMultiItemTypeSupport = new DPMultiItemTypeSupport<ChatMessage>() {
 		@Override
@@ -58,7 +48,8 @@ public class ChatListDemoPage extends DPBaseFragment implements DPOnItemChildVie
 		}
 	};
 
-	private void initData() {
+	@Override
+	protected void initData() {
 		for (int i = 0; i < 30; i++) {
 			ChatMessage model = null;
 			if (i%2 == 0){
@@ -71,7 +62,8 @@ public class ChatListDemoPage extends DPBaseFragment implements DPOnItemChildVie
 		}
 	}
 
-	private void initView() {
+	@Override
+	public void initView() {
 		mListView = (ListView) mMainView.findViewById(R.id.list_view);
 		mDpListViewAdapter = new DPChatAdapter(getActivity(),mDataList, mMultiItemTypeSupport);
 		mDpListViewAdapter.setOnItemChildViewByIdClickListener(this);

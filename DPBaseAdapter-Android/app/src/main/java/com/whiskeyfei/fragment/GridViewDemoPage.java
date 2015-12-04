@@ -1,8 +1,6 @@
 
 package com.whiskeyfei.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,7 +10,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.fei.library.config.AppConstants;
-import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.DPOnItemChildViewByIdClickListener;
 import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.whiskeyfei.R;
@@ -20,26 +17,19 @@ import com.whiskeyfei.adapter.DPGridViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
 import com.whiskeyfei.utils.ApiConstant;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListener,OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
+public class GridViewDemoPage extends PageFragment<DPItemModel> implements OnItemClickListener,OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
 	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_2;
 	private GridView mGridView;
-	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();
-	DPGridViewAdapter mDPGridViewAdapter;
-	private View mMainView;
+	private DPGridViewAdapter mDPGridViewAdapter;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mMainView = inflater.inflate(R.layout.gridview, null);
-		initData();
-		initView();
-		return mMainView;
+	protected int getLayoutId() {
+		return R.layout.gridview;
 	}
 
-	private void initData() {
-		for (int i = 0; i < 30; i++) {
+	@Override
+	protected void initData() {
+		for (int i = 0; i < DATA_SIZE; i++) {
 			DPItemModel model = new DPItemModel();
 			model.setItemResId(R.drawable.ic_launcher);
 			model.setItemTitle("title" + i);
@@ -48,8 +38,9 @@ public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListe
 			mDataList.add(model);
 		}
 	}
-	
-	private void initView() {
+
+	@Override
+	public void initView() {
 		mGridView = (GridView)mMainView.findViewById(R.id.gridview);
 		mGridView.setNumColumns(3);
 		mDPGridViewAdapter = new DPGridViewAdapter(getActivity(), mDataList, R.layout.gridview_item);
@@ -59,10 +50,12 @@ public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListe
 		mDPGridViewAdapter.setOnItemChildViewByIdLongClickListener(this);
 		mGridView.setAdapter(mDPGridViewAdapter);
 	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		Toast.makeText(getActivity(), "点击" + position,Toast.LENGTH_SHORT).show();
 	}
+
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
 		Toast.makeText(getActivity(), "长按" + position,Toast.LENGTH_SHORT).show();
