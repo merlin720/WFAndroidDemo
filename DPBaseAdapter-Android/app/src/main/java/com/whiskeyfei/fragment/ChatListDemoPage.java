@@ -14,12 +14,13 @@ import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.DPChatAdapter;
 import com.whiskeyfei.model.ChatMessage;
+import com.whiskeyfei.utils.ApiConstant;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatListDemoPage extends DPBaseFragment implements DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
-	
+	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_5;
 	private static final String TAG = "ChatListDemoPage";
 	private ListView mListView;
 	private List<ChatMessage> mDataList = new ArrayList<ChatMessage>();

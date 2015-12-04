@@ -8,20 +8,44 @@ import com.fei.library.activity.DPBaseActivity;
 import com.fei.library.fragment.DPBaseFragment;
 import com.fei.library.inter.IBaseFragmentEvent;
 import com.whiskeyfei.R;
-import com.whiskeyfei.fragment.FragmentList;
+import com.whiskeyfei.fragment.ChatListDemoPage;
+import com.whiskeyfei.fragment.GridViewDemoPage;
+import com.whiskeyfei.fragment.ListViewDemoPage;
+import com.whiskeyfei.fragment.ListViewJsonPage;
+import com.whiskeyfei.fragment.RecyclerviewDemoPage;
+import com.whiskeyfei.utils.ApiConstant;
 
 /**
  * Created by whiskeyfei on 15-11-25.
  */
 public class MainPage extends DPBaseActivity implements IBaseFragmentEvent {
+    
     private DPBaseFragment mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-//        Bundle bundle = getIntent().getExtras();
-        switchFragment(new FragmentList(),null);
+        int flag = getIntent().getIntExtra(ApiConstant.FRAGMENT_FLAG, 0);
+        DPBaseFragment fragment = null;
+        switch (flag) {
+            case ListViewDemoPage.FRAGMENT_FLAG:
+                fragment = new ListViewDemoPage();
+                break;
+            case GridViewDemoPage.FRAGMENT_FLAG:
+                fragment = new GridViewDemoPage();
+                break;
+            case ListViewJsonPage.FRAGMENT_FLAG:
+                fragment = new ListViewJsonPage();
+                break;
+            case RecyclerviewDemoPage.FRAGMENT_FLAG:
+                fragment = new RecyclerviewDemoPage();
+                break;
+            case ChatListDemoPage.FRAGMENT_FLAG:
+                fragment = new ChatListDemoPage();
+                break;
+        }
+        switchFragment(fragment, null);
     }
 
     private int getLayoutId() {
@@ -40,7 +64,7 @@ public class MainPage extends DPBaseActivity implements IBaseFragmentEvent {
 
     @Override
     public void onSwitchFragment(DPBaseFragment fragment, Bundle bundle) {
-        switchFragment(fragment,bundle);
+        switchFragment(fragment, bundle);
     }
 
     @Override

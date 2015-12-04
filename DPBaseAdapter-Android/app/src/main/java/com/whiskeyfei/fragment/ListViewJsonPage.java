@@ -20,6 +20,7 @@ import com.fei.library.utils.ListUtils;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.DPListViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
+import com.whiskeyfei.utils.ApiConstant;
 import com.whiskeyfei.utils.VolleyUtil;
 
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListViewJsonPage extends DPBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
-	
+	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_3;
 	private static final String TAG = "ListViewDemoPage";
 	private ListView mListView;
 	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();

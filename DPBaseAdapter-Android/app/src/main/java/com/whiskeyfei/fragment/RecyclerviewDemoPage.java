@@ -17,12 +17,14 @@ import com.fei.library.itemanimator.DividerItemDecoration;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.FirstAdapter;
 import com.whiskeyfei.model.ItemModel;
+import com.whiskeyfei.utils.ApiConstant;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class RecyclerviewDemoPage extends DPBaseFragment implements DPOnItemClickListener,DPOnItemLongClickListener,DPOnItemChildViewByIdLongClickListener,DPOnItemChildViewByIdClickListener{
+    public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_4;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     FirstAdapter mAdapter;

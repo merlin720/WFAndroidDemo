@@ -3,6 +3,8 @@ package com.whiskeyfei.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,72 +15,90 @@ import com.whiskeyfei.fragment.GridViewDemoPage;
 import com.whiskeyfei.fragment.ListViewDemoPage;
 import com.whiskeyfei.fragment.ListViewJsonPage;
 import com.whiskeyfei.fragment.RecyclerviewDemoPage;
+import com.whiskeyfei.utils.ApiConstant;
 
 
-public class MainActivity extends Activity implements OnClickListener{
-	
-	private Button mButtonListView,mButtonGridView,mButtonJson,mRecycleBtn,mChatBtn;
+public class MainActivity extends Activity implements OnClickListener {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		initView();
-	}
+    private Button mButtonListView, mButtonGridView, mButtonJson, mRecycleBtn, mChatBtn;
 
-	private void initView() {
-		mButtonListView = (Button)findViewById(R.id.listview_btn);
-		mButtonGridView = (Button)findViewById(R.id.gridview_btn);
-		mButtonJson = (Button)findViewById(R.id.listview_data_btn);
-		mRecycleBtn = (Button)findViewById(R.id.recycle_btn);
-		mChatBtn = (Button)findViewById(R.id.chat_btn);
-		mButtonListView.setOnClickListener(this);
-		mButtonGridView.setOnClickListener(this);
-		mButtonJson.setOnClickListener(this);
-		mRecycleBtn.setOnClickListener(this);
-		mChatBtn.setOnClickListener(this);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initView();
+    }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.listview_btn:
-				start(ListViewDemoPage.class);
-				break;
-			case R.id.gridview_btn:
-				start(GridViewDemoPage.class);
-				break;
+    private void initView() {
+        mButtonListView = (Button) findViewById(R.id.listview_btn);
+        mButtonGridView = (Button) findViewById(R.id.gridview_btn);
+        mButtonJson = (Button) findViewById(R.id.listview_data_btn);
+        mRecycleBtn = (Button) findViewById(R.id.recycle_btn);
+        mChatBtn = (Button) findViewById(R.id.chat_btn);
+        mButtonListView.setOnClickListener(this);
+        mButtonGridView.setOnClickListener(this);
+        mButtonJson.setOnClickListener(this);
+        mRecycleBtn.setOnClickListener(this);
+        mChatBtn.setOnClickListener(this);
+    }
 
-			case R.id.listview_data_btn:
-				start(ListViewJsonPage.class);
-				break;
-			case R.id.recycle_btn:
-				start(RecyclerviewDemoPage.class);
-				break;
-			case R.id.chat_btn:
-				start(ChatListDemoPage.class);
-				break;
-		}
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-	@Override
-	public void onTrimMemory(int level) {
-		super.onTrimMemory(level);
-		switch (level){
-			case TRIM_MEMORY_UI_HIDDEN:
-				// 进行资源释放操作
-				break;
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
+        return super.onOptionsItemSelected(item);
+    }
 
-	private void start(Class<?> class1) {
-		Intent intent = new Intent(MainActivity.this, class1);
-		startActivity(intent);
-	}
-	
+    @Override
+    public void onClick(View v) {
+        onButtonClick(v);
+    }
+
+    private void onButtonClick(View v) {
+        Intent intent = new Intent(MainActivity.this, MainPage.class);
+        switch (v.getId()) {
+            case R.id.listview_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, ListViewDemoPage.FRAGMENT_FLAG);
+                break;
+            case R.id.gridview_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, GridViewDemoPage.FRAGMENT_FLAG);
+                break;
+            case R.id.listview_data_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, ListViewJsonPage.FRAGMENT_FLAG);
+                break;
+            case R.id.recycle_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, RecyclerviewDemoPage.FRAGMENT_FLAG);
+                break;
+            case R.id.chat_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, ChatListDemoPage.FRAGMENT_FLAG);
+                break;
+        }
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        switch (level) {
+            case TRIM_MEMORY_UI_HIDDEN:
+                // 进行资源释放操作
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

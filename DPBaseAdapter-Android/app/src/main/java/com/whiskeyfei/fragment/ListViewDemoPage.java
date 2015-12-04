@@ -14,6 +14,7 @@ import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.DPListViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
+import com.whiskeyfei.utils.ApiConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.List;
 public class ListViewDemoPage extends DPBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
 	
 	private static final String TAG = "ListViewDemoPage";
+	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_1;
+
 	private ListView mListView;
 	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();
 	private static final String IMAGEURL = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/img/logo_white_ee663702.png";

@@ -18,11 +18,13 @@ import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
 import com.whiskeyfei.R;
 import com.whiskeyfei.adapter.DPGridViewAdapter;
 import com.whiskeyfei.model.DPItemModel;
+import com.whiskeyfei.utils.ApiConstant;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GridViewDemoPage extends DPBaseFragment implements OnItemClickListener,OnItemLongClickListener,DPOnItemChildViewByIdClickListener,DPOnItemChildViewByIdLongClickListener {
+	public static final int FRAGMENT_FLAG = ApiConstant.FRAGMENT_FLAG_2;
 	private GridView mGridView;
 	private List<DPItemModel> mDataList = new ArrayList<DPItemModel>();
 	DPGridViewAdapter mDPGridViewAdapter;
