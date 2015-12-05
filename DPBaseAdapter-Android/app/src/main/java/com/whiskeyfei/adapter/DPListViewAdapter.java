@@ -18,6 +18,8 @@ public class DPListViewAdapter extends DPQuickAdapter<DPItemModel> {
 	@Override
 	public void convert(DPViewHolder holder, DPItemModel model) {
 		//绑定监听
+//		holder.addSwipeListener(R.id.sw);
+//		holder.addDrag(SwipeLayout.DragEdge.Left, R.id.listview_delete);
 		holder.setItemChildClickListener(R.id.listview_delete);
 		holder.setItemChildLongClickListener(R.id.listview_delete);
 		

@@ -30,7 +30,7 @@ public class DPGridViewAdapter extends DPQuickAdapter<DPItemModel> {
 		
 		//绑定数据
 		holder.setText(R.id.gridview_title, model.mItemTitle);
-//		holder.setImageResource(R.id.gridview_imageView, model.mItemResId);
+		holder.setImageResource(R.id.gridview_imageView, model.mItemResId);
 		VolleyUtil.cancelAllQueue(model);
 		ImageRequest request=new ImageRequest(model.getItemIconUrl(), new Response.Listener<Bitmap>() {
 
@@ -43,7 +43,7 @@ public class DPGridViewAdapter extends DPQuickAdapter<DPItemModel> {
 			@Override
 			public void onErrorResponse(VolleyError arg0) {
 				Log.e("","argo:"+arg0.getMessage());
-//				holder.setImageResource(R.id.gridview_imageView,R.mipmap.ic_launcher);
+				holder.setImageResource(R.id.gridview_imageView,R.mipmap.ic_launcher);
 			}
 		});
 		VolleyUtil.addToRequestQueue(request, model);

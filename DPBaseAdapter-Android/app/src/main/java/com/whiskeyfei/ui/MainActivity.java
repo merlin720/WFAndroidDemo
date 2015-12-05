@@ -14,12 +14,13 @@ import com.whiskeyfei.fragment.ChatListDemoPage;
 import com.whiskeyfei.fragment.GridViewDemoPage;
 import com.whiskeyfei.fragment.ListViewDemoPage;
 import com.whiskeyfei.fragment.RecyclerviewDemoPage;
+import com.whiskeyfei.fragment.SwipeListDemoPage;
 import com.whiskeyfei.utils.ApiConstant;
 
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    private Button mButtonListView, mButtonGridView, mRecycleBtn, mChatBtn;
+    private Button mButtonListView, mButtonGridView, mRecycleBtn, mChatBtn,mSwipeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,13 @@ public class MainActivity extends Activity implements OnClickListener {
         mButtonGridView = (Button) findViewById(R.id.gridview_btn);
         mRecycleBtn = (Button) findViewById(R.id.recycle_btn);
         mChatBtn = (Button) findViewById(R.id.chat_btn);
+        mSwipeBtn = (Button) findViewById(R.id.swipe_btn);
+
         mButtonListView.setOnClickListener(this);
         mButtonGridView.setOnClickListener(this);
         mRecycleBtn.setOnClickListener(this);
         mChatBtn.setOnClickListener(this);
+        mSwipeBtn.setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +78,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             case R.id.chat_btn:
                 intent.putExtra(ApiConstant.FRAGMENT_FLAG, ChatListDemoPage.FRAGMENT_FLAG);
+                break;
+            case R.id.swipe_btn:
+                intent.putExtra(ApiConstant.FRAGMENT_FLAG, SwipeListDemoPage.FRAGMENT_FLAG);
                 break;
         }
         startActivity(intent);

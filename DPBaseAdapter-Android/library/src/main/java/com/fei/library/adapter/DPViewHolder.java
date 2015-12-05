@@ -21,7 +21,7 @@ import com.fei.library.inter.DPOnItemChildViewByIdLongClickListener;
  * Created by whiskeyfei on 15-7-9.
  */
 public class DPViewHolder implements OnClickListener,OnLongClickListener {
-	
+	private static final String TAG = "DPViewHolder";
 	private final Context mContext;
     private final SparseArray<View> mViews;
     private int mPosition;

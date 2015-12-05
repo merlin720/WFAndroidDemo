@@ -26,7 +26,6 @@ public abstract class DPBaseAdapter<T> extends BaseAdapter {
 
     private DPOnItemChildViewByIdClickListener mDPOnItemChildViewByIdClickListener;
     private DPOnItemChildViewByIdLongClickListener mDPOnItemChildViewByIdLongClickListener;
-
     /**
      * Create DPBaseAdapter of layoutId
      * @param context The context.

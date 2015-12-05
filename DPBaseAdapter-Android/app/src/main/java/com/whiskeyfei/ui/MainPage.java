@@ -12,6 +12,7 @@ import com.whiskeyfei.fragment.ChatListDemoPage;
 import com.whiskeyfei.fragment.GridViewDemoPage;
 import com.whiskeyfei.fragment.ListViewDemoPage;
 import com.whiskeyfei.fragment.RecyclerviewDemoPage;
+import com.whiskeyfei.fragment.SwipeListDemoPage;
 import com.whiskeyfei.utils.ApiConstant;
 
 /**
@@ -40,6 +41,10 @@ public class MainPage extends DPBaseActivity implements IBaseFragmentEvent {
             case ChatListDemoPage.FRAGMENT_FLAG:
                 fragment = new ChatListDemoPage();
                 break;
+            case SwipeListDemoPage.FRAGMENT_FLAG:
+                fragment = new SwipeListDemoPage();
+                break;
+
         }
         switchFragment(fragment, null);
     }

@@ -45,5 +45,14 @@
         android:text="ChatListView"
         android:textSize="18sp"
         android:layout_below="@+id/recycle_btn"/>
+    <Button
+        android:id="@+id/swipe_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="SwipeListView"
+        android:textSize="18sp"
+        android:layout_below="@+id/chat_btn"/>
+
+
 
 </RelativeLayout>
