@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
+import de.greenrobot.event.EventBus;
 import whiskeyfei.com.dpservicedemo.app.AppClient;
 
 
@@ -16,7 +16,7 @@ public class BootService extends Service {
 	private static final String TAG = "BootService";
 	
 	private Handler mHandler = new Handler(Looper.getMainLooper());
-	private static final long DELAY = 1000 * 5;
+	private static final long DELAY = 1000;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -26,34 +26,40 @@ public class BootService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		EventBus.getDefault().register(this);
 		 Log.e(TAG, ">>> onCreate");
 	}
 	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 		mHandler.removeCallbacks(mRegularAction);
 	}
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		 Log.e(TAG, ">>> StartupService onStartCommand");
 		 startInit();
 		 return super.onStartCommand(intent, flags, startId);
 	}
 
 	private void startInit() {
 		Context context = AppClient.getInstance().getApplicationContext();
-		Toast.makeText(context, "show time!", Toast.LENGTH_SHORT).show();
-		mHandler.removeCallbacks(mRegularAction);
-		mHandler.postDelayed(mRegularAction, DELAY);
+		EventBus.getDefault().post(mRegularAction);
+	}
+
+	public void onEventMainThread(Runnable r) {
+		mHandler.removeCallbacks(r);
+		mHandler.postDelayed(r, DELAY);
 	}
 	
-	private final Runnable mRegularAction = new Runnable() {
+	private  Runnable mRegularAction = new Runnable() {
 		
 		@Override
 		public void run() {
-			startService();
+			long time = System.currentTimeMillis();
+			EventBus.getDefault().post(new FirstEvent(time+""));
+			EventBus.getDefault().post(mRegularAction);
 		}
 	};
 	

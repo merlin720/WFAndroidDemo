@@ -2,17 +2,11 @@ package whiskeyfei.com.dpservicedemo;
 
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
 
-import whiskeyfei.com.dpservicedemo.service.BootService;
+import whiskeyfei.com.dpservicedemo.service.TestFragment;
 
 public class MainActivity extends Activity {
 
@@ -22,7 +16,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new TestFragment()).commit();
 		}
 	}
 
@@ -39,35 +33,5 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment implements
-			OnClickListener {
-
-		Button mStopButton;
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			mStopButton = (Button) rootView.findViewById(R.id.stop_service);
-			mStopButton.setOnClickListener(this);
-			return rootView;
-		}
-
-		@Override
-		public void onClick(View v) {
-			if (v.getId() == R.id.stop_service) {
-				BootService.stopService();
-			}
-		}
-
 	}
 }
