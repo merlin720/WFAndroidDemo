@@ -14,7 +14,7 @@ import whiskeyfei.com.dpservicedemo.R;
  * Created by whiskeyfei on 15-12-10.
  */
 public class TestFragment extends Fragment implements View.OnClickListener {
-    Button mStopButton;
+    private Button mStopButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container,false);
-    mStopButton = (Button) rootView.findViewById(R.id.stop_service);
-    mStopButton.setOnClickListener(this);
-    return rootView;
-}
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        mStopButton = (Button) rootView.findViewById(R.id.stop_service);
+        mStopButton.setOnClickListener(this);
+        return rootView;
+    }
 
     public void onEventMainThread(FirstEvent item) {
         mStopButton.setText(item.getTime());

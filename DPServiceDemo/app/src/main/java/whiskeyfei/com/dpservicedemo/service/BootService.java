@@ -9,7 +9,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import de.greenrobot.event.EventBus;
-import whiskeyfei.com.dpservicedemo.app.AppClient;
+import whiskeyfei.com.dpservicedemo.app.AppContext;
 
 
 public class BootService extends Service {
@@ -44,7 +44,7 @@ public class BootService extends Service {
 	}
 
 	private void startInit() {
-		Context context = AppClient.getInstance().getApplicationContext();
+		Context context = AppContext.get();
 		EventBus.getDefault().post(mRegularAction);
 	}
 
@@ -65,14 +65,14 @@ public class BootService extends Service {
 	
 	public static void startService() {
 		 Log.e(TAG, ">>> startService");
-		 Context context = AppClient.getInstance().getApplicationContext();
+		 Context context = AppContext.get();
 		 Intent intent = new Intent(context, BootService.class);
 		 context.startService(intent);
 	}
 	
 	public static void stopService(){
 		 Log.e(TAG, ">>> stopService");
-		 Context context = AppClient.getInstance().getApplicationContext();
+		 Context context = AppContext.get();
 		 Intent intent = new Intent(context, BootService.class);
 		 context.stopService(intent);
 	}
