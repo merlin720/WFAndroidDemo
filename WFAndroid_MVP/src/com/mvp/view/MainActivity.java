@@ -8,21 +8,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mvp.R;
-import com.mvp.presenter.IMainPresenter;
 import com.mvp.presenter.MainPresenter;
 
 public class MainActivity extends Activity implements IMainView {
 
 	private TextView mTextView;
 	private Button mButton;
-	private IMainPresenter mMainPresenter;
+	private MainPresenter mMainPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
-		mMainPresenter = new MainPresenter(this);
+		mMainPresenter = new MainPresenter(this);//绑定IMainView回调接口,可以单独调用attachView方法来绑定
+		
 		mButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements IMainView {
 		});
 	}
 
-	void initView() {
+	private void initView() {
 		mTextView = (TextView) findViewById(R.id.text);
 		mButton = (Button) findViewById(R.id.loadButton);
 	}

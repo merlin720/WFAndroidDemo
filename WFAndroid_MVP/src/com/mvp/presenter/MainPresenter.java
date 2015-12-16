@@ -1,25 +1,53 @@
 package com.mvp.presenter;
 
+import com.mvp.base.BasePresenter;
 import com.mvp.model.IMainModel;
 import com.mvp.model.MainModel;
 import com.mvp.view.IMainView;
 
-public class MainPresenter implements IMainPresenter,IMainCallback{
-	private IMainView mMainView;
+public class MainPresenter extends BasePresenter<IMainView> implements IMainCallback {
 	private IMainModel mUserModel;
-
-	public MainPresenter(IMainView view) {
-		mMainView = view;
+	
+	/**
+	 * 需要手动绑定
+	 */
+	public MainPresenter() {
 		mUserModel = new MainModel(this);
 	}
 	
+	/**
+	 * 直接绑定view
+	 * @param view
+	 */
+	public MainPresenter(IMainView view) {
+		attachView(view);
+		mUserModel = new MainModel(this);
+	}
+
 	@Override
+	public void attachView(IMainView mvpBaseView) {
+		super.attachView(mvpBaseView);
+	}
+
+	@Override
+	public void detachView() {
+		super.detachView();
+	}
+	
+	/**
+	 * 加载数据
+	 */
+	public void load(){
+		checkViewAttached();//检查是绑定IMainView
+		
+	}
+
 	public void show() {
 		mUserModel.show();
 	}
 
 	@Override
 	public void show(String string) {
-		mMainView.showTextView(string);
+		getMvpBaseView().showTextView(string);
 	}
 }
