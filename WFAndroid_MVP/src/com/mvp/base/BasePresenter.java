@@ -39,7 +39,7 @@ public class BasePresenter<T extends IMVPBaseView> implements IMVPPresenter<T> {
 	public void checkViewAttached() {
 		if (!isViewAttached())
 			throw new RuntimeException(
-					"Please call Presenter.attachView(IMVPBaseView) before"
+					"Please call BasePresenter.attachView(IMVPBaseView) before"
 							+ " requesting data to the Presenter");
 	}
 }

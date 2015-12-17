@@ -39,7 +39,7 @@ public class MainPresenter extends BasePresenter<IMainView> implements IMainCall
 	 */
 	public void load(){
 		checkViewAttached();//检查是绑定IMainView
-		
+		//data
 	}
 
 	public void show() {
