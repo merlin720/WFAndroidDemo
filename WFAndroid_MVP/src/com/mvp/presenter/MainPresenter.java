@@ -20,8 +20,8 @@ public class MainPresenter extends BasePresenter<IMainView> implements IMainCall
 	 * @param view
 	 */
 	public MainPresenter(IMainView view) {
+		this();
 		attachView(view);
-		mUserModel = new MainModel(this);
 	}
 
 	@Override
