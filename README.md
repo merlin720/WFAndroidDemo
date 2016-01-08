@@ -23,3 +23,5 @@
     - 学习使用EventBus，自定义实现观察者模式
 #### WPLayoutImp
     - Android布局标签Include,ViewStub使用，并进行布局优化
+#### WPORMLiteDemo
+    - 学习使用ORMLite框架，简单存储和读取
