@@ -5,33 +5,20 @@ import java.util.List;
 /**
  * Created by whiskeyfei on 16-1-7.
  */
-public class CatsHelper4 {
-    ApiWrapper3 apiWrapper = new ApiWrapper3();
+public class CatsHelper5 {
+    ApiWrapper5 apiWrapper = new ApiWrapper5();
 
-    public AsyncJob<String> saveTheCutestCat(final String query) {
-       final AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
-//        这 16 行代码只有一行是对我们有用（对于逻辑来说）的操作：
-//        findCutest(result)
-
-        final AsyncJob<Cat> cutestCatAsyncJob = new AsyncJob<Cat>(){
+    public AsyncJob2<String> saveTheCutestCat(final String query) {
+       final AsyncJob2<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+       final AsyncJob2<Cat> cutestCatAsyncJob = catsListAsyncJob.map(new Func<List<Cat>, Cat>() {
 
             @Override
-            public void start(final Callback<Cat> callback) {
-                catsListAsyncJob.start(new Callback<List<Cat>>() {
-                    @Override
-                    public void onResult(List<Cat> result) {
-                        callback.onResult(findCutest(result));
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        callback.onError(e);
-                    }
-                });
+            public Cat call(List<Cat> cats) {
+                return findCutest(cats);
             }
-        };
+        });
 
-        AsyncJob<String> stringAsyncJob = new AsyncJob<String>() {
+        AsyncJob2<String> stringAsyncJob = new AsyncJob2<String>() {
             @Override
             public void start(final Callback<String> cutestCatCallback) {
                 cutestCatAsyncJob.start(new Callback<Cat>() {

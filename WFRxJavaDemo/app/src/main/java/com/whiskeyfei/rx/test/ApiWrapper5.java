@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by whiskeyfei on 16-1-8.
  */
-public class ApiWrapper3 {
+public class ApiWrapper5 {
     Api api = new ApiTest();
 
-    public AsyncJob<List<Cat>> queryCats(final String query) {
-        return new AsyncJob<List<Cat>>() {
+    public AsyncJob2<List<Cat>> queryCats(final String query) {
+        return new AsyncJob2<List<Cat>>() {
             @Override
             public void start(final Callback<List<Cat>> catsCallback) {
                 api.queryCats(query, new Api.CatsQueryCallback() {
@@ -28,8 +28,8 @@ public class ApiWrapper3 {
         };
     }
 
-    public AsyncJob<String> store(final Cat cat) {
-        return new AsyncJob<String>() {
+    public AsyncJob2<String> store(final Cat cat) {
+        return new AsyncJob2<String>() {
             @Override
             public void start(final Callback<String> callback) {
                 api.store(cat, new Api.StoreCallback() {

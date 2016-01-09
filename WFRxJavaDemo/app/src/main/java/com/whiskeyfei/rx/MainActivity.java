@@ -7,12 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.whiskeyfei.rx.test.Callback;
 import com.whiskeyfei.rx.test.CatsHelper1;
 import com.whiskeyfei.rx.test.CatsHelper3;
+import com.whiskeyfei.rx.test.CatsHelper4;
+import com.whiskeyfei.rx.test.CatsHelper5;
+import com.whiskeyfei.rx.utils.Constants;
 
 import rx.Observable;
 import rx.Observer;
@@ -21,13 +26,15 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
     ImageView mImageView;
+    private Button mTest1,mTest2,mTest3,mTest4,mTest5,mTest6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         mImageView = (ImageView)findViewById(R.id.image);
 //        mObservable.subscribe(mObserver);
 
@@ -35,28 +42,101 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 //        test2();
 
-//        catsHelperTest1();
-        catsHelperTest3();
     }
 
-    private  void catsHelperTest3(){
-        CatsHelper3 catsHelper3 = new CatsHelper3();
-        catsHelper3.saveTheCutestCat("").start(new Callback<String>() {
+    private void initView() {
+        mTest1 = (Button) findViewById(R.id.button1);
+        mTest2 = (Button) findViewById(R.id.button2);
+        mTest3 = (Button) findViewById(R.id.button3);
+        mTest4 = (Button) findViewById(R.id.button4);
+        mTest5 = (Button) findViewById(R.id.button5);
+        mTest6 = (Button) findViewById(R.id.button6);
+        mTest1.setText("mTest1");
+        mTest2.setText("mTest2");
+        mTest3.setText("mTest3");
+        mTest4.setText("mTest4");
+        mTest5.setText("mTest5");
+        mTest6.setText("mTest6");
+        mTest1.setOnClickListener(this);
+        mTest2.setOnClickListener(this);
+        mTest3.setOnClickListener(this);
+        mTest4.setOnClickListener(this);
+        mTest5.setOnClickListener(this);
+        mTest6.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                catsHelperTest1();
+                break;
+            case R.id.button2:
+
+                break;
+            case R.id.button3:
+                catsHelperTest3();
+                break;
+            case R.id.button4:
+                catsHelperTest4();
+                break;
+            case R.id.button5:
+                catsHelperTest5();
+                break;
+            case R.id.button6:
+                break;
+        }
+    }
+
+    private void catsHelperTest5() {
+        CatsHelper5 casCatsHelper5 = new CatsHelper5();
+        casCatsHelper5.saveTheCutestCat(Constants.BAIDU).start(new Callback<String>() {
             @Override
             public void onResult(String result) {
-                Log.e(TAG,"stringAsyncJob result:"+result);
+                Log.e(TAG,"catsHelperTest5 result:"+result);
             }
 
             @Override
             public void onError(Exception e) {
-                Log.e(TAG,"stringAsyncJob e:"+e);
+                Log.e(TAG,"catsHelperTest5 e:"+e);
+            }
+        });
+    }
+
+
+    private  void catsHelperTest4(){
+        CatsHelper4 catsHelper4 = new CatsHelper4();
+        catsHelper4.saveTheCutestCat(Constants.BAIDU).start(new Callback<String>() {
+            @Override
+            public void onResult(String result) {
+                Log.e(TAG,"catsHelperTest4 result:"+result);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG,"catsHelperTest4 e:"+e);
+            }
+        });
+    }
+
+    private  void catsHelperTest3(){
+        CatsHelper3 catsHelper3 = new CatsHelper3();
+        catsHelper3.saveTheCutestCat(Constants.BAIDU).start(new Callback<String>() {
+            @Override
+            public void onResult(String result) {
+                Log.e(TAG,"catsHelperTest3 result:"+result);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG,"catsHelperTest3 e:"+e);
             }
         });
     }
 
     private void catsHelperTest1() {
         CatsHelper1 catsHelper = new CatsHelper1();
-        catsHelper.saveTheCutestCat("", new CatsHelper1.CutestCatCallback() {
+        catsHelper.saveTheCutestCat(Constants.BAIDU, new CatsHelper1.CutestCatCallback() {
             @Override
             public void onCutestCatSaved(String s) {
                 Log.e(TAG,"onCutestCatSaved:" + s );
