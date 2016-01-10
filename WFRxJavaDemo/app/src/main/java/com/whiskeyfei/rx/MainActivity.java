@@ -24,6 +24,7 @@ import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        test2();
 
     }
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 catsHelperTest1();
                 break;
             case R.id.button2:
-
+                test2();
                 break;
             case R.id.button3:
                 catsHelperTest3();
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 catsHelperTest5();
                 break;
             case R.id.button6:
+                test4();
                 break;
         }
     }
@@ -205,6 +206,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void call(String name) {
                 Log.d(TAG, name);
+            }
+        });
+    }
+
+    private void test4(){
+        Observable.just(R.drawable.ic_launcher).map(new Func1<Integer, Drawable>() {
+
+            @Override
+            public Drawable call(Integer integer) {
+                return getResources().getDrawable(integer);
+            }
+        }).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+        .subscribe(new Observer<Drawable>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(Drawable drawable) {
+                mImageView.setImageDrawable(drawable);
             }
         });
     }
