@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onStart() {
             super.onStart();
-        //可选方法，默认情况下它的实现为空,对线程有要求，不是UI主线程
+            //可选方法，默认情况下它的实现为空,对线程有要求，不是UI主线程
         }
 
         @Override
@@ -210,6 +210,121 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private void helloWorld(){
+        Observable.create(new Observable.OnSubscribe<String>() {
+
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("hello World");
+                subscriber.onCompleted();
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError e:"+e);
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d(TAG, "onNext s:"+s);
+            }
+        });
+
+
+        //操作符 用来转换string
+
+        Observable.just("hello World").map(new Func1<String, String>() {
+
+            @Override
+            public String call(String s) {
+                return s + "test";
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError e:"+e);
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d(TAG, "onNext s:"+s);
+            }
+        });
+
+        //还可以这么写
+
+        Observable.just("hello World").subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                Log.d(TAG, "call s:"+s);
+            }
+        });
+
+        //
+        Observable.just("Hello, world!").map(new Func1<String, Integer>() {
+
+            @Override
+            public Integer call(String s) {
+                return s.hashCode();
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError e:"+e);
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG, "onNext integer:"+integer);
+            }
+        });
+        
+        //转换三次 string -> int > string > int
+        Observable.just("Hello, world!").map(new Func1<String, Integer>() {
+
+            @Override
+            public Integer call(String s) {
+                return s.hashCode();
+            }
+        }).map(new Func1<Integer, String>() {
+
+            @Override
+            public String call(Integer integer) {
+                return Integer.toString(integer);
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError e:"+e);
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d(TAG, "onNext s:"+s);
+            }
+        });
+    }
+
     private void test4(){
         Observable.just(R.drawable.ic_launcher).map(new Func1<Integer, Drawable>() {
 
@@ -236,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     //
     private void test2() {
         Observable.create(new Observable.OnSubscribe<Drawable>() {
@@ -291,9 +407,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
