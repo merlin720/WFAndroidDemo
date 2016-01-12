@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         mImageView = (ImageView)findViewById(R.id.image);
-//        mObservable.subscribe(mObserver);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -150,23 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    Observer<String> mObserver = new Observer<String>() {
-        @Override
-        public void onCompleted() {
-            Log.d(TAG, "Completed!");
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Log.d(TAG, "Error!");
-        }
-
-        @Override
-        public void onNext(String s) {
-            Log.d(TAG, "mObserver: " + s);
-        }
-    };
-
     Subscriber<String> subscriber = new Subscriber<String>() {
         @Override
         public void onStart() {
@@ -198,132 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     });
 
-
-    //将字符串数组 names 中的所有字符串依次打印出来
-    private void test1(){
-        String [] names ={"111","222","333"};
-        Observable.from(names).subscribe(new Action1<String>() {
-            @Override
-            public void call(String name) {
-                Log.d(TAG, name);
-            }
-        });
-    }
-
-    private void helloWorld(){
-        Observable.create(new Observable.OnSubscribe<String>() {
-
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("hello World");
-                subscriber.onCompleted();
-            }
-        }).subscribe(new Observer<String>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d(TAG, "onError e:"+e);
-            }
-
-            @Override
-            public void onNext(String s) {
-                Log.d(TAG, "onNext s:"+s);
-            }
-        });
-
-
-        //操作符 用来转换string
-
-        Observable.just("hello World").map(new Func1<String, String>() {
-
-            @Override
-            public String call(String s) {
-                return s + "test";
-            }
-        }).subscribe(new Observer<String>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d(TAG, "onError e:"+e);
-            }
-
-            @Override
-            public void onNext(String s) {
-                Log.d(TAG, "onNext s:"+s);
-            }
-        });
-
-        //还可以这么写
-
-        Observable.just("hello World").subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                Log.d(TAG, "call s:"+s);
-            }
-        });
-
-        //
-        Observable.just("Hello, world!").map(new Func1<String, Integer>() {
-
-            @Override
-            public Integer call(String s) {
-                return s.hashCode();
-            }
-        }).subscribe(new Observer<Integer>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d(TAG, "onError e:"+e);
-            }
-
-            @Override
-            public void onNext(Integer integer) {
-                Log.d(TAG, "onNext integer:"+integer);
-            }
-        });
-        
-        //转换三次 string -> int > string > int
-        Observable.just("Hello, world!").map(new Func1<String, Integer>() {
-
-            @Override
-            public Integer call(String s) {
-                return s.hashCode();
-            }
-        }).map(new Func1<Integer, String>() {
-
-            @Override
-            public String call(Integer integer) {
-                return Integer.toString(integer);
-            }
-        }).subscribe(new Observer<String>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d(TAG, "onError e:"+e);
-            }
-
-            @Override
-            public void onNext(String s) {
-                Log.d(TAG, "onNext s:"+s);
-            }
-        });
-    }
 
     private void test4(){
         Observable.just(R.drawable.ic_launcher).map(new Func1<Integer, Drawable>() {
@@ -400,7 +255,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -409,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
