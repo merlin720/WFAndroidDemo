@@ -17,7 +17,12 @@ import com.whiskeyfei.rx.test.CatsHelper1;
 import com.whiskeyfei.rx.test.CatsHelper3;
 import com.whiskeyfei.rx.test.CatsHelper4;
 import com.whiskeyfei.rx.test.CatsHelper5;
+import com.whiskeyfei.rx.test.Data;
 import com.whiskeyfei.rx.utils.Constants;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
     ImageView mImageView;
     private Button mTest1,mTest2,mTest3,mTest4,mTest5,mTest6;
+    private String mPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +45,89 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImageView = (ImageView)findViewById(R.id.image);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mPath = getFilesDir().toString();
+        createFile();
+    }
 
+    private void readFile() {
+        Observable.just(mPath).map(new Func1<String, File[]>() {
+
+            @Override
+            public File[] call(String path) {
+                File file = new File(path);
+                return file.listFiles();
+            }
+        }).map(new Func1<File[], List<String>>() {
+
+            @Override
+            public List<String> call(File[] files) {
+                return Data.changeList(files);
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<String>>() {
+            @Override
+            public void onCompleted() {
+                Log.e(TAG,"onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG,"onError e:" + e);
+            }
+
+            @Override
+            public void onNext(List<String> list) {
+                Log.e(TAG,"onNext list:" + list);
+            }
+        });
+    }
+
+    private void createFile() {
+        File file=new File(mPath);
+        File[] tempList = file.listFiles();
+        if(tempList.length > 0){
+            Log.e(TAG,"length > 0");
+            readFile();
+            return;
+        }
+        Observable.from(Data.getFileList()).map(new Func1<String, String>() {
+
+            @Override
+            public String call(String s) {
+                return getFilesDir() + "/" + s;
+            }
+        }).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+        .map(new Func1<String, String>() {
+
+            @Override
+            public String call(String s) {
+                File file = new File(s);
+                if (!file.exists()){
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return "name:"+file.getName();
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.e(TAG,"onCompleted");
+                readFile();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG,"onError e:" + e);
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.e(TAG,"onNext s:" + s);
+            }
+        });
     }
 
     private void initView() {

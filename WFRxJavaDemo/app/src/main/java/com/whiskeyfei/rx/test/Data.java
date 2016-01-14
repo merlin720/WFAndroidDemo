@@ -1,5 +1,6 @@
 package com.whiskeyfei.rx.test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,23 @@ public class Data {
             }
             cat.setlist(strings);
             list.add(cat);
+        }
+        return list;
+    }
+
+    public static List<String> getFileList(){
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            list.add(i+".txt");
+        }
+        return list;
+    }
+
+    public static List<String> changeList(File[] files) {
+        List<String> list = new ArrayList<>();
+        int len = files.length;
+        for (int i = 0; i < len; i++) {
+            list.add(files[i].getName());
         }
         return list;
     }
