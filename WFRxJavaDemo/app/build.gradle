@@ -13,7 +13,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true //移除那些没有使用到的代码，还可以对类名，方法名进行混淆处理以避免程序被反编译
+//            shrinkResource true //分析引用的资源，对于那些没有被引用到的资源，会在编译阶段被排除在APK安装包之外
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,4 +31,5 @@ dependencies {
     androidTestCompile 'junit:junit:4.12'
     testCompile 'junit:junit:4.12'
     compile 'junit:junit:4.12'
+    compile 'com.google.code.gson:gson:2.5'
 }
