@@ -3,6 +3,9 @@ package com.whiskeyfei.rx;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.whiskeyfei.rx.app.FileAdapter;
 import com.whiskeyfei.rx.test.Callback;
 import com.whiskeyfei.rx.test.CatsHelper1;
 import com.whiskeyfei.rx.test.CatsHelper3;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView mImageView;
     private Button mTest1,mTest2,mTest3,mTest4,mTest5,mTest6;
     private String mPath;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private FileAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onNext(List<String> list) {
                 Log.e(TAG,"onNext list:" + list);
+                mAdapter.setDate(list);
             }
         });
     }
@@ -131,6 +139,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycle_view);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycle_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new FileAdapter(this);
+//        mAdapter.setOnItemClickListener(mOnItemClickListener);
+        mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.addOnScrollListener(mOnScrollListener);
         mTest1 = (Button) findViewById(R.id.button1);
         mTest2 = (Button) findViewById(R.id.button2);
         mTest3 = (Button) findViewById(R.id.button3);
