@@ -27,4 +27,6 @@
     - 学习使用ORMLite框架，简单存储和读取
 #### WFRxJavaDemo
     - 学习使用RxJava
+#### WFDataStorageDemo
+    - 学习使用SharedPreferences,封装工具类
     
