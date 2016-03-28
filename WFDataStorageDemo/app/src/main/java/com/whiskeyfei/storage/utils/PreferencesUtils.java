@@ -35,7 +35,6 @@ public class PreferencesUtils {
         return saveBoolean(context, NAME, key, value);
     }
 
-
     /**
      * delault local
      */
