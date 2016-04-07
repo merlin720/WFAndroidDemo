@@ -14,6 +14,7 @@ gen/
 
 # Gradle files
 .gradle/
+*.iml
 build/
 /*/build/
 
@@ -34,3 +35,4 @@ captures/
 
 .idea/workspace.xml
 .idea/libraries
+.idea
