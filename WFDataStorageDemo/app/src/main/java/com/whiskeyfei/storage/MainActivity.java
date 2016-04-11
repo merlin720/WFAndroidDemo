@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //SharedPreferences
         PreferencesUtils.saveString(this,"test","key1","test1");
         PreferencesUtils.saveBoolean(this,"test","key2",true);
         User user = new User();
@@ -23,5 +25,8 @@ public class MainActivity extends AppCompatActivity {
         UserPreference.saveUser(this,user);
 
         Log.e("TAG","user:" + UserPreference.getUser(this).toString());
+
+
+        //files
     }
 }
