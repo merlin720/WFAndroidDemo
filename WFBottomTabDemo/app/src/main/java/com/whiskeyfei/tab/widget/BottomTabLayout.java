@@ -2,11 +2,8 @@ package com.whiskeyfei.tab.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.whiskeyfei.tab.R;
 
@@ -24,10 +21,8 @@ public class BottomTabLayout extends LinearLayout {
             {R.drawable.icon_me_normal, R.drawable.icon_me_selected}
     };
 
-
-
     private View[] mTabViews;
-    private int mTabTextSelectColor,mTabtextNormalColor;
+    private int mTabTextSelectColor, mTabTextNormalColor;
 
     public BottomTabLayout(Context context) {
         this(context,null);
@@ -39,40 +34,57 @@ public class BottomTabLayout extends LinearLayout {
 
     public BottomTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mTabTextSelectColor = getResources().getColor(R.color.tab_textcolor_selected);
-        mTabtextNormalColor = getResources().getColor(R.color.tab_textcolor_normal);
+        init();
         init(context, attrs, defStyleAttr);
+    }
+
+    private void init(){
+        mTabTextSelectColor = getResources().getColor(R.color.tab_textcolor_selected);
+        mTabTextNormalColor = getResources().getColor(R.color.tab_textcolor_normal);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         int len = mTabNames.length;
         mTabViews = new View[len];
         for (int i = 0; i < len; i++) {
-            final View view = LayoutInflater.from(getContext()).inflate(R.layout.tab_item, this, false);
-            mTabViews[i] = view;
-            ImageView imageView = (ImageView)view.findViewById(R.id.tab_icon);
-            TextView textView = (TextView)view.findViewById(R.id.tab_text);
-            textView.setText(mTabNames[i]);
-            imageView.setImageResource(mTabIconRes[i][0]);
-            LinearLayout.LayoutParams lp = (LayoutParams) view.getLayoutParams();
-            lp.weight = 1;
-            if (i == 0){
-                textView.setTextColor(mTabTextSelectColor);
-                imageView.setImageResource(mTabIconRes[i][1]);
+           final TabItemView itemView = new TabItemView(context);
+            mTabViews[i] = itemView;
+            itemView.setText(mTabNames[i]);
+            boolean isZero = (i == 0);
+            itemView.setTextColor(isZero ? mTabTextSelectColor :mTabTextNormalColor);
+            itemView.setTabIcon(isZero ? mTabIconRes[i][1] : mTabIconRes[i][0]);
+            itemView.setOnTabClickListener(mTabOnClickListener);
+            LinearLayout.LayoutParams lp = (LayoutParams) itemView.getLayoutParams();
+            if (lp != null){
+                lp.weight = 1;
             }
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for (int i = 0; i < getChildCount(); i++) {
-                        TextView tex  = ((TextView) mTabViews[i].findViewById(R.id.tab_text));
-                        ImageView imageView = (ImageView) mTabViews[i].findViewById(R.id.tab_icon);
-                        imageView.setImageResource(v == getChildAt(i) ?  mTabIconRes[i][1]: mTabIconRes[i][0]);
-                        tex.setTextColor(v == getChildAt(i) ? mTabTextSelectColor:mTabtextNormalColor);
-                    }
-                }
-            });
-            addView(view);
+            addView(itemView);
         }
+    }
+
+    private TabItemView.OnTabClickListener mTabOnClickListener = new TabItemView.OnTabClickListener() {
+        @Override
+        public void onClick(View v) {
+            int count = getChildCount();
+            if (mTabViews == null || mTabIconRes == null || count <= 0){
+                return;
+            }
+            for (int i = 0; i < count; i++) {
+                boolean isSelected = (v == getChildAt(i));
+                TabItemView item = (TabItemView) mTabViews[i];
+                if (item != null){
+                    item.setTabIcon(isSelected ?  mTabIconRes[i][1]: mTabIconRes[i][0]);
+                    item.setTextColor(isSelected ? mTabTextSelectColor: mTabTextNormalColor);
+                }
+            }
+        }
+    };
+
+    public void onDestory(){
+        mTabNames = null;
+        mTabIconRes = null;
+        mTabOnClickListener = null;
+        mTabViews = null;
     }
 
 
